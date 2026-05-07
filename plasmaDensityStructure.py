@@ -11,9 +11,9 @@ from matplotlib.gridspec import GridSpec
 
 plt.rcParams.update({'font.size': 12})
 
-# paths
-ROOT_L4   = "/project/rbsp/mirror/fm1/L4"
-ROOT_MAGE = "/project/rbsp/soc/Server/ECT/MagEphem/RBSP-A/definitive"
+# paths <-- change to your path
+#ROOT_L4   = "/project/rbsp/mirror/fm1/L4"
+#ROOT_MAGE = "/project/rbsp/soc/Server/ECT/MagEphem/RBSP-A/definitive"
 
 OMNI_FILE = "omni_hros_1min_20120915000000_20191012000000_cdaweb.cdf"
 
