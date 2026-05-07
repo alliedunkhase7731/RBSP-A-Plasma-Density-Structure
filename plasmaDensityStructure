@@ -11,9 +11,7 @@ from matplotlib.gridspec import GridSpec
 
 plt.rcParams.update({'font.size': 12})
 
-# ------------------------------------------
-# Paths
-# ------------------------------------------
+# paths
 ROOT_L4   = "/project/rbsp/mirror/fm1/L4"
 ROOT_MAGE = "/project/rbsp/soc/Server/ECT/MagEphem/RBSP-A/definitive"
 
@@ -24,16 +22,11 @@ YEAR_END   = "2019-10-12"
 
 OUTDIR = "./ugh_polar_ratio_plots_FINAL"
 Path(OUTDIR).mkdir(exist_ok=True)
-
-# ------------------------------------------
 # L range
-# ------------------------------------------
 L_MIN = 2.0
 L_MAX = 6.0
 
-# ------------------------------------------
-# Smooth binning
-# ------------------------------------------
+# binning
 abins = np.linspace(0, 2*np.pi, 49)
 rbins = np.arange(L_MIN, L_MAX + 0.5, 0.5)
 rbins = rbins[rbins != 3.5]
@@ -54,9 +47,7 @@ AE_titles = [
     "AE > 400 nT (Active)"
 ]
 
-# ==========================================
-# Load OMNI AE
-# ==========================================
+# Load AE Index data
 print("Loading OMNI AE data...")
 
 cdf_ae = cdflib.CDF(OMNI_FILE)
@@ -68,9 +59,7 @@ AE_series = pd.Series(AE_vals, index=time_ae)
 
 print("AE data loaded.")
 
-# ==========================================
-# MagEphem parsing
-# ==========================================
+
 def parse_start_columns(path):
     wanted = {"DateTime", "Lsimple", "Lm_eq", "CDMAG_MLT", "EDMAG_MLT"}
     cols = {}
@@ -116,9 +105,7 @@ def load_L_MLT_magEphem(path):
 
     return time, L, np.mod(MLT, 24.0)
 
-# ==========================================
-# Load RBSP Data
-# ==========================================
+# Get RBSP data
 all_ratio, all_L, all_MLT, all_AE = [], [], [], []
 
 days = pd.date_range(YEAR_START, YEAR_END, freq="D")
@@ -179,11 +166,6 @@ for day in days:
     except Exception:
         continue
 
-# ==========================================
-# Combine
-# ==========================================
-print("Combining data...")
-
 ratio = np.concatenate(all_ratio)
 L     = np.concatenate(all_L)
 MLT   = np.concatenate(all_MLT)
@@ -193,10 +175,6 @@ theta = np.radians((MLT * 360.0) / 24.0)
 
 print("Total samples:", ratio.size)
 
-# ==========================================
-# GLOBAL SCALE
-# ==========================================
-print("Computing global scale...")
 
 global_max = 0
 
@@ -231,9 +209,7 @@ for (AEmin, AEmax) in AE_bins:
 
 print("Global max =", global_max)
 
-# ==========================================
-# Plot + Save (FIXED LAYOUT)
-# ==========================================
+# Plot and save
 for (AEmin, AEmax), AEtitle in zip(AE_bins, AE_titles):
 
     print(f"Plotting {AEtitle}")
