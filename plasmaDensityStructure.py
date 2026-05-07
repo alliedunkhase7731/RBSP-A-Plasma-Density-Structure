@@ -20,7 +20,7 @@ OMNI_FILE = "omni_hros_1min_20120915000000_20191012000000_cdaweb.cdf"
 YEAR_START = "2012-09-15"
 YEAR_END   = "2019-10-12"
 
-OUTDIR = "./ugh_polar_ratio_plots_FINAL"
+OUTDIR = "./polar_ratio_plots_FINAL"
 Path(OUTDIR).mkdir(exist_ok=True)
 # L range
 L_MIN = 2.0
